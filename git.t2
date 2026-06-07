@@ -1,0 +1,80 @@
+const { test, expect } = require('@playwright/test');
+
+test('Simple Login Test', async ({ page }) => {
+
+  // Open website
+  await page.goto('https://practicetestautomation.com/practice-test-login/');
+
+  // Enter username
+  await page.fill('#username', 'student');
+
+  // Enter password
+  await page.fill('#password', 'Password123');
+
+  // Click Login button
+  await page.click('//button[@id="submit"]');
+
+
+
+  // Verify success message
+  await expect(page.locator('.post-title'))
+  //.post-title
+    .toContainText('Logged In Successfully');
+
+    //Logged In Successfully
+
+});
+
+
+
+// Negative Scenario
+  test('Invalid Login @negative', async ({ page }) => {
+
+    await page.goto('https://practicetestautomation.com/practice-test-login/');
+   
+
+    // Enter invalid username
+    await page.fill('#username', 'wronguser');
+
+    // Enter invalid password
+    await page.fill('#password', 'wrongpass');
+
+    // Click Login
+    await page.click('#submit');
+
+     // Pause for 3 seconds
+    await page.waitForTimeout(3000);
+
+
+    // Verify error message
+    await expect(page.locator('#error'))
+      .toContainText('Your username is invalid!');
+
+  });
+
+  //negative scenario
+
+test('Invalid password @negative', async ({ page }) => {
+
+    await page.goto('https://practicetestautomation.com/practice-test-login/');
+
+    // Enter valid username
+    await page.fill('#username', 'student');
+
+    // Enter invalid password
+    await page.fill('#password', 'studentpass');
+
+    // Click login button
+    await page.click('#submit');
+
+     // Pause for 3 seconds
+    await page.waitForTimeout(3000);
+    // Verify error message
+    await expect(page.locator('#error'))
+        .toHaveText('Your password is invalid!');
+
+});
+
+
+
+
