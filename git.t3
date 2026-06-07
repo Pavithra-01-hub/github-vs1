@@ -1,0 +1,27 @@
+const{ test,expect}=require('@playwright/test');
+test('logout page',async({page})=>{
+    //open wibsite
+    await page.goto('https://practicetestautomation.com/practice-test-login/');
+    //enter username
+    await page.fill('#username','student');
+    //enter password
+    await page.fill('#password','Password123');
+    //click login button
+    await page.click('//button[@id="submit"]');
+
+    //verify succcess message
+    await expect(page.locator('.post-title'))
+    .toContainText('Logged In Successfully')
+//click logout button
+await Promise.all([
+        
+        page.click('text=Log out'),
+        page.waitForURL('**/practice-test-login/')
+    ]);
+    // verify back to login page
+    await expect(page).toHaveURL('https://practicetestautomation.com/practice-test-login/');
+    
+
+ 
+});
+
