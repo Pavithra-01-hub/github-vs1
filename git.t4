@@ -1,0 +1,21 @@
+test('radio button',async({page})=>{
+
+  //open website
+  await page.goto('https://www.amazon.com/customer-preferences/edit?ie=UTF8&preferencesReturnUrl=%2F&ref_=topnav_lang_ais');
+  await page.waitForTimeout(3000);
+
+  //click the radio button
+//await page.locator('(//i[@class="a-icon a-icon-radio"])[7]').click();
+//select espanol
+await page.locator('xpath=/html/body/div[1]/div[1]/div/form/div[1]/div[1]/div[3]/div/label/i').check();
+// //information true
+const ischecked = await page.locator('xpath=/html/body/div[1]/div[1]/div/form/div[1]/div[1]/div[3]/div/label/i').isChecked();
+console.log('espanolchecked:',ischecked)
+
+//checking portigues
+await page.locator('(//i[@class="a-icon a-icon-radio"])[7]').click();
+
+const portugues = await page.locator('(//i[@class="a-icon a-icon-radio"])[7]').isChecked();
+console.log('portugueschecked:', portugues)
+
+});
